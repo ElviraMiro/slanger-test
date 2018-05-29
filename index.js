@@ -1,5 +1,3 @@
-const fs = require('fs')
-const yaml = require('js-yaml')
 const Pusher = require('pusher-js')
 const axios = require('axios')
 
