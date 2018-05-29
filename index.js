@@ -1,7 +1,7 @@
 const Pusher = require('pusher-js')
 const axios = require('axios')
 
-const config = require('./config')
+const config = require('./config.js')
 
 
 axios({
@@ -23,12 +23,13 @@ axios({
             private_channel = `private-${sn}`
         console.log("get member")
         console.log(response.data)
-        var pusher = new Pusher({
-            key: config.PUSHER_KEY,
-            wsHost: config.PUSHER_HOST,
+        var pusher = new Pusher(config.PUSHER_APP_KEY, {
+            wsHost: config.PUSHER_WS_HOST,
             wssPort: config.PUSHER_CLIENT_WSS_PORT,
-            wsPort: config.PUSHER_CLIENT_WS_PORT,
+            httpHost: config.PUSHER_HTTP_HOST,
+            httpsPort: config.PUSHER_HTTPS_PORT,
             encrypted: config.PUSHER_ENCRYPTED,
+            authEndpoint: config.PUSHER_AUTH_ENDPOINT,
             auth: {
                 headers: {Authorization: `Bearer ${jwt}`}
             }
