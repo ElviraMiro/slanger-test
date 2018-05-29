@@ -4,7 +4,6 @@ const Pusher = require('pusher-js')
 const axios = require('axios')
 
 const config = require('./config')
-const api = require('./helpers/getJWTandSN')
 
 var users = yaml.safeLoad(fs.readFileSync('users.yaml', 'utf8'));
 
