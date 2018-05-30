@@ -28,9 +28,6 @@ axios({
             wsHost: config.PUSHER_WS_HOST,
             wsPort: config.PUSHER_WS_PORT,
             wssPort: config.PUSHER_WSS_PORT,
-            httpHost: config.PUSHER_HTTP_HOST,
-            httpPort: config.PUSHER_HTTP_PORT,
-            httpsPort: config.PUSHER_HTTPS_PORT,
             encrypted: config.PUSHER_ENCRYPTED,
             authEndpoint: config.PUSHER_AUTH_ENDPOINT,
             auth: {
@@ -48,6 +45,9 @@ axios({
             var channel_private = pusher.subscribe(private_channel);
             channel_private.bind('accounts', data => {
                 console.log("get private ACCOUNTS event", data);
+            });
+            channel_private.bind('pusher:subscription_succeeded', data => {
+                console.log("get private pusher event", data);
             });
             channel_private.bind('account', data => {
                 console.log("get private ACCOUNT event", data);
