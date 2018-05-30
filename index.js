@@ -35,19 +35,13 @@ axios({
             }
         };
         var pusher = new Pusher(config.PUSHER_APP_KEY, options);
-        setInterval(()=>{
-            console.log(pusher.connection.state)
-        },1000)
         pusher.connection.bind('error', (err) => console.log({err}, 'error'));
         pusher.connection.bind('failed', (err) => console.log({err}, 'failed'));
-        pusher.connection.bind('connected', function() {
-        
-            var channel_private = pusher.subscribe(private_channel);
+        var channel_private = pusher.subscribe(private_channel);
+        channel_private.bind('pusher:subscription_succeeded', status=>{
+            console.log("Private channel subscription status", status)
             channel_private.bind('accounts', data => {
                 console.log("get private ACCOUNTS event", data);
-            });
-            channel_private.bind('pusher:subscription_succeeded', data => {
-                console.log("get private pusher event", data);
             });
             channel_private.bind('account', data => {
                 console.log("get private ACCOUNT event", data);
@@ -55,7 +49,10 @@ axios({
             channel_private.bind('order', data => {
                 console.log("get private ORDER event", data);
             });
-            var channel_tickers = pusher.subscribe('market-global');
+        });
+        var channel_tickers = pusher.subscribe('market-global');
+        channel_tickers.bind('pusher:subscription_succeeded', status=>{
+            console.log("Tickers channel subscription status", status)
             channel_tickers.bind('tickers', data=> {
                 console.log("get global TICKERS event", data)
             })
