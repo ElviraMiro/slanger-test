@@ -6,6 +6,7 @@ set ENVIROMENT VARIABLES (see ```config.js```)
 
 ## Usage
 
+Start script with command
 ```
 npm start
 ```
