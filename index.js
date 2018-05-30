@@ -49,12 +49,15 @@ axios({
             channel_private.bind('order', data => {
                 console.log("get private ORDER event", data);
             });
+            channel_private.bind('trade', data => {
+                console.log("get private TRADE event", data);
+            });
         });
         var channel_tickers = pusher.subscribe('market-global');
         channel_tickers.bind('pusher:subscription_succeeded', status=>{
             console.log("Tickers channel subscription status", status)
             channel_tickers.bind('tickers', data=> {
-                console.log("get global TICKERS event", data)
+                //console.log("get global TICKERS event", data)
             })
         })
         
