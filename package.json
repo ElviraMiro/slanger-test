@@ -21,7 +21,6 @@
   "homepage": "https://github.com/ElviraMiro/slanger-test#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "js-yaml": "^3.11.0",
-    "pusher-js": "^4.2.2"
+    "pusher-slanger-client": "https://github.com/ElviraMiro/pusher-client-node/tarball/master"
   }
 }
