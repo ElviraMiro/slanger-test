@@ -10,6 +10,10 @@ Start script with command
 ```
 npm start
 ```
+or
+```
+node start
+```
 
 This script:
 

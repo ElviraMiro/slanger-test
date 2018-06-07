@@ -3,7 +3,7 @@ const axios = require('axios')
 
 const config = require('./config.js')
 
-
+console.log("POST ", config.JWT_URL, config.BARONG_USER)
 axios({
     method: "post",
     url: config.JWT_URL,
@@ -43,8 +43,8 @@ axios({
             channel_private.bind('accounts', data => {
                 console.log("get private ACCOUNTS event", data);
             });
-            channel_private.bind('account', data => {
-                console.log("get private ACCOUNT event", data);
+            channel_private.bind('members', data => {
+                console.log("get private MEMBERS event", data);
             });
             channel_private.bind('order', data => {
                 console.log("get private ORDER event", data);
@@ -55,9 +55,17 @@ axios({
         });
         var channel_tickers = pusher.subscribe('market-global');
         channel_tickers.bind('pusher:subscription_succeeded', status=>{
-            console.log("Tickers channel subscription status", status)
             channel_tickers.bind('tickers', data=> {
-                //console.log("get global TICKERS event", data)
+                console.log("get global TICKERS event", data)
+            })
+        })
+        var channel_tickers = pusher.subscribe('market-eurusd-global');
+        channel_tickers.bind('pusher:subscription_succeeded', status=>{
+            channel_tickers.bind('update', data=> {
+                console.log("get global UPDATE event", data)
+            })
+            channel_tickers.bind('trades', data=> {
+                console.log("get global TRADES event", data)
             })
         })
         
@@ -70,8 +78,8 @@ axios({
     });
 }).catch(function(err) {
     if (err.response) {
-        console.log("Error when get JWT", err.response.data);
+        console.log("Error when get JWT1", err.response.data);
     } else {
-        console.log("Error when get JWT", err);
+        console.log("Error when get JWT2", err);
     }
 });
